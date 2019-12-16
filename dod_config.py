@@ -1,5 +1,8 @@
 # configuration for dod
 
+DAEMON = False
+
+SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 8088
 USERS = {'zhaw': 'AllOGG4LimhWiLbYbZUsEs3mp'}
 
@@ -8,7 +11,6 @@ USERS = {'zhaw': 'AllOGG4LimhWiLbYbZUsEs3mp'}
 # injector: presents /inject endpoint without Auth, which receives data from frontend and injects into mux
 ROLES = ["frontend", "injector"]
 
-INJECTOR_ALLOW_IPS = ["127.0.0.1"]
 INJECTOR_HOST = "127.0.0.1"
 INJECTOR_PORT = 8088
 INJECTOR_FIFO = "/tmp/data-zhaw.fifo"

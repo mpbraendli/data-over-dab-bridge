@@ -7,7 +7,7 @@ from cherrypy.lib import auth_digest
 from dod_config import *
 
 cherrypy.config.update({'server.socket_port': SERVER_PORT})
-
+cherrypy.config.update({'server.socket_host': SERVER_HOST})
 
 conf = {
    '/data': {
@@ -56,8 +56,6 @@ class Root(object):
     def inject(self):
         if "injector" not in ROLES:
             raise cherrypy.HTTPError(501, 'Not Implemented')
-        if cherrypy.request.remote.ip not in INJECTOR_ALLOW_IPS:
-            raise cherrypy.HTTPError(403, 'Forbidden')
 
         with open(INJECTOR_FIFO, "wb") as fifo:
             cl = cherrypy.request.headers['Content-Length']
@@ -67,5 +65,12 @@ class Root(object):
         return "OK"
 
 if __name__ == '__main__':
-   cherrypy.quickstart(Root(), '/', conf)
+    if DAEMON:
+        from cherrypy.process.plugins import Daemonizer
+        d = Daemonizer(cherrypy.engine)
+        d.subscribe()
+
+    cherrypy.tree.mount(Root(), "/", conf)
+    cherrypy.engine.start()
+    cherrypy.engine.block()
 
