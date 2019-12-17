@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-from dod_config import *
 import requests
 from requests.auth import HTTPDigestAuth
+
+USERS = {'zhaw': 'AllOGG4LimhWiLbYbZUsEs3mp'}
+INJECTOR_HOST = "172.30.201.211"
+INJECTOR_PORT = 8088
+url = 'data'
 
 print("Sending data request")
 
@@ -11,7 +15,7 @@ user, passwd = tuple(USERS.items())[0]
 
 print("Digest auth with {}:{}".format(user, passwd))
 
-r = requests.post("http://{}:{}/data".format(INJECTOR_HOST, INJECTOR_PORT),
+r = requests.post("http://{}:{}/{}".format(INJECTOR_HOST, INJECTOR_PORT, url),
         data=body,
         auth=HTTPDigestAuth(user, passwd))
 
