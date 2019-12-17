@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 import requests
 from requests.auth import HTTPDigestAuth
 import cherrypy
@@ -61,6 +62,12 @@ class Root(object):
             cl = cherrypy.request.headers['Content-Length']
             body = cherrypy.request.body.read(int(cl))
             fifo.write(body)
+
+            if INJECTOR_LOGFILE:
+                with open(INJECTOR_LOGFILE, "a") as logfd:
+                    logfd.write("{}: {} bytes injected\n".format(
+                        time.strftime("%Y-%m-%dZ%H:%M:%S", time.gmtime()),
+                        cl))
 
         return "OK"
 

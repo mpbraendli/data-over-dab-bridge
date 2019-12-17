@@ -14,3 +14,6 @@ ROLES = ["frontend", "injector"]
 INJECTOR_HOST = "127.0.0.1"
 INJECTOR_PORT = 8088
 INJECTOR_FIFO = "/tmp/data-zhaw.fifo"
+
+# for injector
+INJECTOR_LOGFILE = 'dod_bridge.log'
