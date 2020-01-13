@@ -30,6 +30,10 @@ has_role_injector = 'injector' in config
 if has_role_injector:
     injector_fifo = config['injector']['fifo']
     injector_logfile = config['injector']['logfile']
+    try:
+        os.mkfifo(injector_fifo)
+    except FileExistsError:
+        pass
 
 cherrypy.config.update({'server.socket_port': server_port})
 cherrypy.config.update({'server.socket_host': server_host})
