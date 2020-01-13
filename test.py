@@ -3,7 +3,7 @@ import requests
 from requests.auth import HTTPDigestAuth
 
 USERS = {'zhaw': 'AllOGG4LimhWiLbYbZUsEs3mp'}
-INJECTOR_HOST = "172.30.201.211"
+INJECTOR_HOST = "127.0.0.1"
 INJECTOR_PORT = 8088
 url = 'data'
 
