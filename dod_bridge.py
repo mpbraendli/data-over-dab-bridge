@@ -86,9 +86,9 @@ class Root(object):
 
             if injector_logfile:
                 with open(injector_logfile, "a") as logfd:
-                    logfd.write("{}: {} bytes injected\n".format(
-                        time.strftime("%Y-%m-%dZ%H:%M:%S", time.gmtime()),
-                        cl))
+                    logfd.write("{}: {} bytes injected: {}\n".format(
+                        time.strftime("%Y-%m-%dZ%H:%M:%S", time.gmtime()), cl,
+                        " ".join("{:02x}".format(i) for i in body)))
 
         return "OK"
 
