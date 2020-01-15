@@ -41,14 +41,12 @@ conf = {
         'tools.auth_digest.realm': 'localhost',
         'tools.auth_digest.get_ha1': auth_digest.get_ha1_dict_plain(users),
         'tools.auth_digest.key': 'iw4jURBej6oPraM3mISaH0xat',
-        'tools.auth_digest.accept_charset': 'UTF-8',
    },
    '/inject': {
         'tools.auth_digest.on': True,
         'tools.auth_digest.realm': 'localhost',
         'tools.auth_digest.get_ha1': auth_digest.get_ha1_dict_plain(users),
         'tools.auth_digest.key': 'iw4jURBej6oPraM3mISaH0xat',
-        'tools.auth_digest.accept_charset': 'UTF-8',
    }
 }
 
@@ -60,7 +58,7 @@ class Root(object):
     @cherrypy.expose
     @cherrypy.tools.accept(media="application/octet-stream")
     def data(self):
-        if has_role_frontend:
+        if not has_role_frontend:
             raise cherrypy.HTTPError(501, 'Not Implemented')
         cl = cherrypy.request.headers['Content-Length']
         body = cherrypy.request.body.read(int(cl))
@@ -78,7 +76,7 @@ class Root(object):
 
     @cherrypy.expose
     def inject(self):
-        if has_role_injector:
+        if not has_role_injector:
             raise cherrypy.HTTPError(501, 'Not Implemented')
 
         with open(injector_fifo, "wb") as fifo:
